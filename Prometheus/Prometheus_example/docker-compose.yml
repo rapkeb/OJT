@@ -17,11 +17,34 @@ services:
     volumes:
       - prometheus_data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount configuration file
+      - ./alert_rules.yml:/etc/prometheus/alert_rules.yml
+    networks:
+      - app-network
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=your_password  # Change this to a strong password
     networks:
       - app-network
 
 volumes:
   prometheus_data:
+  grafana-storage:
 
 networks:
   app-network:

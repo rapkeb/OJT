@@ -1,0 +1,56 @@
+groups:
+  - name: example-alerts
+    rules:
+      - alert: HighGetRequestRate
+        expr: rate(http_requests_total{method="GET"}[5m]) > 10
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "High GET request rate detected"
+          description: "More than 10 GET requests per second for the last 5 minutes."
+
+      - alert: LowStockLevel
+        expr: low_stock_percentage > 50
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low stock level detected"
+          description: "Stock level for some items is above 50% low."
+
+      - alert: LowPurchaseRatio
+        expr: purchase_success_ratio < 0.2
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "LowPurchaseRatio detected"
+          description: "LowPurchaseRatio is under 20%."
+
+      - alert: HighErrorRate
+        expr: rate(http_errors_total[5m]) > 5
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "More than 5 errors per second in the last 5 minutes."
+
+      - alert: HighLatency
+        expr: http_request_duration_seconds{job="fastapi"} > 2
+        for: 15s
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request latency detected"
+          description: "Requests to FastAPI are taking longer than 2 seconds."
+
+      - alert: ServiceDown
+        expr: up{job="fastapi"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "The FastAPI service is down and has not been up for the last 1 minute."
