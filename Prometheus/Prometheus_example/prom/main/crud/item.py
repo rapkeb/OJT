@@ -1,11 +1,11 @@
 import time
 from fastapi import HTTPException
-from app.custom_metrics.basicMetrics import requests_total, request_duration, request_latency, amount_bought_summary, \
+from prom.main.custom_metrics.basicMetrics import requests_total, request_duration, request_latency, amount_bought_summary, \
     low_stock_metric
-from app.custom_metrics.basicMetrics import purchase_success_ratio
-from app.schemas.inventory import Inventory
-from app.schemas.item import Item
-from app.utils.functions import save_inventory_to_env
+from prom.main.custom_metrics.basicMetrics import purchase_success_ratio
+from prom.main.schemas.inventory import Inventory
+from prom.main.schemas.item import Item
+from prom.main.utils.functions import save_inventory_to_env
 
 
 async def root1(inventory: Inventory):

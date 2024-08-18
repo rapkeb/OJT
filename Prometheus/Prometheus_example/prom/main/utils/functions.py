@@ -1,9 +1,10 @@
 import os
 from prometheus_client import generate_latest
 from starlette.responses import Response
-from app.schemas.inventory import Inventory
-from app.schemas.item import Item
+from prom.main.schemas.inventory import Inventory
+from prom.main.schemas.item import Item
 from dotenv import load_dotenv
+
 
 # Function to load inventory from .env
 def load_inventory_from_env():
@@ -18,7 +19,7 @@ def save_inventory_to_env(inventory):
     serialized_items = ";".join([item.json() for item in inventory.items])
 
     # Load the existing .env file
-    env_path = os.path.join(os.path.dirname(__file__), '../../.env')
+    env_path = os.path.join(os.path.dirname(__file__), '../../../.env')
     load_dotenv(dotenv_path=env_path)
 
     # Update the environment variable

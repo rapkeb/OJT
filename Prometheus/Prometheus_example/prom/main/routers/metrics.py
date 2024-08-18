@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.utils.functions import metrics1
+from prom.main.utils.functions import metrics1
 
 
 # Create an instance of APIRouter

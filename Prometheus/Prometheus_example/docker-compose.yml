@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  fastapi-app:
+    image: rapkeb/prom:23  # Replace with your image name if different
+    container_name: fastapi_app
+    ports:
+      - "8080:5001"  # Map container port 5001 to host port 5001
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"  # Map container port 9090 to host port 9090
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount configuration file
+    networks:
+      - app-network
+
+volumes:
+  prometheus_data:
+
+networks:
+  app-network:
+    driver: bridge

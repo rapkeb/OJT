@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Body, Depends
-from app.crud.item import root1, add_item1, buy_item1
-from app.schemas.inventory import Inventory
-from app.schemas.item import Item
+from prom.main.crud.item import root1, add_item1, buy_item1
+from prom.main.schemas.inventory import Inventory
+from prom.main.schemas.item import Item
 from typing import Annotated
-from app.utils.inventory_helper import get_inventory  # Importing get_inventory from app.py
+from prom.main.utils.inventory_helper import get_inventory  # Importing get_inventory from prom.py
 
 
 

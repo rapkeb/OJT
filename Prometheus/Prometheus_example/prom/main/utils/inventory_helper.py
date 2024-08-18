@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
-from app.utils.functions import load_inventory_from_env
-from app.schemas.inventory import Inventory
+from prom.main.utils.functions import load_inventory_from_env
+from prom.main.schemas.inventory import Inventory
 
 
 # Load environment variables from .env file

@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Depends
 import uvicorn
-from app.routers.items import router as items_router
-from app.routers.metrics import router as metrics_router
-from app.utils.inventory_helper import get_inventory
+from .main.routers.items import router as items_router
+from .main.routers.metrics import router as metrics_router
+from .main.utils.inventory_helper import get_inventory
 
 
 app = FastAPI()

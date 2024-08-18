@@ -1,8 +1,8 @@
 from prometheus_client import Summary, Counter, Histogram, REGISTRY
 
-from app.custom_metrics.amountBoughtSummary import AmountBoughtCollector
-from app.custom_metrics.lowStockPercent import LowStockPercentage
-from app.custom_metrics.purchaseSuccessRatio import PurchaseSuccessRatio
+from prom.main.custom_metrics.amountBoughtSummary import AmountBoughtCollector
+from prom.main.custom_metrics.lowStockPercent import LowStockPercentage
+from prom.main.custom_metrics.purchaseSuccessRatio import PurchaseSuccessRatio
 
 # Define labels for the request_latency Summary
 request_latency = Summary(
