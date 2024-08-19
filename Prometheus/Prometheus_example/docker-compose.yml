@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   fastapi-app:
-    image: rapkeb/prom:23  # Replace with your image name if different
+    image: rapkeb/prom:24  # Replace with your image name if different
     container_name: fastapi_app
     ports:
       - "8000:5001"  # Map container port 5001 to host port 5001

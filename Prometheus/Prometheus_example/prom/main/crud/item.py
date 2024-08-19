@@ -5,7 +5,7 @@ from prom.main.custom_metrics.basicMetrics import requests_total, request_durati
 from prom.main.custom_metrics.basicMetrics import purchase_success_ratio
 from prom.main.schemas.inventory import Inventory
 from prom.main.schemas.item import Item
-from prom.main.utils.functions import save_inventory_to_env
+from prom.main.utils.functions import save_inventory_to_env, execute_query
 
 
 async def root1(inventory: Inventory):
@@ -32,6 +32,7 @@ async def add_item1(item: Item, inventory: Inventory):
         if existing_item.name == item.name:
             existing_item.amount += item.amount
             save_inventory_to_env(inventory)
+            execute_query()
             latency = time.time() - start_time
             request_latency.labels(method=method).observe(latency)
             request_duration.labels(method=method).observe(latency)
@@ -40,6 +41,7 @@ async def add_item1(item: Item, inventory: Inventory):
 
     inventory.items.append(item)
     save_inventory_to_env(inventory)
+    execute_query()
     latency = time.time() - start_time
     request_latency.labels(method=method).observe(latency)
     request_duration.labels(method=method).observe(latency)
@@ -68,6 +70,7 @@ async def buy_item1(name: str, amount: int, inventory: Inventory):
             if item.amount == 0:
                 inventory.items.remove(item)
             save_inventory_to_env(inventory)
+            execute_query()
             low_stock_metric.update_inventory(inventory)
             amount_bought_summary.observe_amount(item.price, amount)
             latency = time.time() - start_time

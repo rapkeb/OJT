@@ -1,6 +1,11 @@
 import os
+import random
+import time
+
 from prometheus_client import generate_latest
 from starlette.responses import Response
+
+from prom.main.custom_metrics.basicMetrics import DB_OPERATION_DURATION
 from prom.main.schemas.inventory import Inventory
 from prom.main.schemas.item import Item
 from dotenv import load_dotenv
@@ -43,3 +48,16 @@ def calculate_low_stock_percentage(inventory: Inventory):
     if total_items == 0:
         return 0
     return (low_stock_count / total_items) * 100
+
+
+def measure_db_operation(func):
+    def wrapper(*args, **kwargs):
+        with DB_OPERATION_DURATION.time():  # Measure the time taken by the decorated function
+            return func(*args, **kwargs)
+    return wrapper
+
+
+@measure_db_operation
+def execute_query():
+    # Simulate a database query execution
+    time.sleep(random.uniform(0.1, 1.0))  # Simulating varying query times

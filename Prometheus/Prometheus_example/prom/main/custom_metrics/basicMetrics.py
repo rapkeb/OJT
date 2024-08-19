@@ -26,6 +26,9 @@ request_duration = Histogram(
     buckets=[0.1, 0.5, 1, 2, 5, 10]  # Define histogram buckets
 )
 
+DB_OPERATION_DURATION = Histogram('db_operation_duration_seconds', 'Time taken for database operations')
+
+
 # Custom metric instance
 purchase_success_ratio = PurchaseSuccessRatio()
 low_stock_metric = LowStockPercentage(low_stock_threshold=10)
