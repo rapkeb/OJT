@@ -13,3 +13,8 @@ starlette==0.37.2
 typing==3.7.4.3
 typing_extensions==4.12.2
 uvicorn==0.30.6
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-otlp
+

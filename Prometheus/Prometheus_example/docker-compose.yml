@@ -2,12 +2,16 @@ version: '3.8'
 
 services:
   fastapi-app:
-    image: rapkeb/prom:24  # Replace with your image name if different
+    image: rapkeb/prom:29  # Replace with your image name if different
     container_name: fastapi_app
     ports:
       - "8000:5001"  # Map container port 5001 to host port 5001
     networks:
       - app-network
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+    depends_on:
+      - tempo
 
   prometheus:
     image: prom/prometheus:latest
@@ -53,6 +57,19 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+    networks:
+      - app-network
+
+  # Tempo service
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    ports:
+      - "3200:3200"
+      - "4317:4317"
+    volumes:
+      - ./tempo.yml:/etc/tempo/tempo.yml  # Point to the same directory
+    command: [ "tempo", "--config.file=/etc/tempo/tempo.yml" ]
     networks:
       - app-network
 

@@ -50,6 +50,7 @@ async def add_item1(item: Item, inventory: Inventory):
 
 
 async def buy_item1(name: str, amount: int, inventory: Inventory):
+    time.sleep(10)
     method = 'post'
     requests_total.labels(method=method).inc()
     start_time = time.time()
